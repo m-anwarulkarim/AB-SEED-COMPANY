@@ -15,7 +15,7 @@ import {
 
 export default function Header() {
   return (
-    <header className="w-full border-b bg-white shadow-sm">
+    <header className="w-full border-b bg-white shadow-sm  sticky top-0 z-50">
       <div className=" mx-auto px-4 py-3">
         {/* --- Large Screen Layout (xl and up) --- */}
         <div className="hidden xl:flex items-center   justify-between w-full  ">
@@ -46,14 +46,14 @@ export default function Header() {
                 className="flex flex-col items-center text-xs sm:text-sm lg:text-base text-gray-700 hover:text-green-600 flex-shrink-0"
               >
                 <div className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12">
-                  <div className="absolute top-0 left-1 w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 flex items-center justify-center rounded-full border border-green-600 text-green-600 bg-white">
+                  <div className="absolute top-0 left-1 w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 flex items-center justify-center rounded-full border bg-white">
                     <FaCommentDots className="w-3 h-3 lg:w-4 lg:h-4" />
                   </div>
-                  <div className="absolute bottom-0 left-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex items-center justify-center rounded-full border border-green-600 text-green-600 bg-white">
+                  <div className="absolute bottom-0 left-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex items-center justify-center rounded-full border  bg-white">
                     <FaThumbsUp className="w-2 h-2 lg:w-3 lg:h-3" />
                   </div>
-                  <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex items-center justify-center rounded-full border border-green-600 text-green-600 bg-white">
-                    <FaHeart className="w-2 h-2 lg:w-3 lg:h-3" />
+                  <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex items-center justify-center rounded-full border bg-white">
+                    <FaHeart className="w-4 h-4 lg:w-3 lg:h-3" />
                   </div>
                 </div>
                 <span></span>
@@ -200,13 +200,13 @@ export default function Header() {
               >
                 {item.extra ? (
                   <div className="relative flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11">
-                    <div className="absolute top-0 left-1 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full border border-green-600 text-green-600 bg-white">
+                    <div className="absolute top-0 left-1 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full border  bg-white">
                       <FaCommentDots className="w-3 h-3 sm:w-4 sm:h-4" />
                     </div>
-                    <div className="absolute bottom-0 left-0 w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full border border-green-600 text-green-600 bg-white">
+                    <div className="absolute bottom-0 left-0 w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full border  bg-white">
                       <FaThumbsUp className="w-2 h-2 sm:w-3 sm:h-3" />
                     </div>
-                    <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full border border-green-600 text-green-600 bg-white">
+                    <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full border  bg-white">
                       <FaHeart className="w-2 h-2 sm:w-3 sm:h-3" />
                     </div>
                   </div>
