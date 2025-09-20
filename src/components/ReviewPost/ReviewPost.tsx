@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Review } from "@/type/reviewTypes";
+import type { FormEvent } from "react";
 
 interface Props {
   onAddReview: (newReview: Review) => void; // parent থেকে review handle করার জন্য
@@ -10,8 +11,11 @@ export default function ReviewPost({ onAddReview }: Props) {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(5);
 
-  const handlePost = () => {
-    if (!text.trim()) return;
+  const RATING_OPTIONS = [5, 4, 3, 2, 1];
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault(); // ফর্ম সাবমিট হলে পেজ রিলোড হওয়া আটকায়
+    if (!title.trim() || !text.trim()) return; // টাইটেল এবং টেক্সট উভয়ই চেক করা হচ্ছে
 
     const newReview: Review = {
       id: Date.now(),
@@ -32,43 +36,49 @@ export default function ReviewPost({ onAddReview }: Props) {
   };
 
   return (
-    <div className="border p-3 rounded bg-white shadow-sm flex flex-col gap-2 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className="border p-4 rounded bg-white shadow-sm flex flex-col gap-3 mb-6"
+    >
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Review Title"
-        className="border rounded px-2 py-1"
+        placeholder="রিভিউ টাইটেল"
+        className="border rounded px-3 py-2 w-full"
+        required
       />
 
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Write your review..."
-        className="border rounded px-2 py-1 resize-none"
+        placeholder="আপনার রিভিউ লিখুন..."
+        className="border rounded px-3 py-2 w-full resize-none"
         rows={3}
+        required
       />
 
-      <div>
-        Rating:{" "}
+      <div className="flex items-center gap-2">
+        <label htmlFor="rating-select">রেটিং:</label>
         <select
+          id="rating-select"
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
-          className="border rounded px-1 py-0.5"
+          className="border rounded px-2 py-1"
         >
-          {[1, 2, 3, 4, 5].map((n) => (
+          {RATING_OPTIONS.map((n) => (
             <option key={n} value={n}>
-              {n}
+              {n} স্টার
             </option>
           ))}
         </select>
       </div>
 
       <button
-        onClick={handlePost}
-        className="px-3 py-1 bg-blue-600 text-white rounded"
+        type="submit"
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 self-start"
       >
-        Post Review
+        পোস্ট করুন
       </button>
-    </div>
+    </form>
   );
 }

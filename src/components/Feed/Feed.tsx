@@ -8,15 +8,8 @@ import FeedComposer from "./FeedComposer"; // image/video post
 import ReviewComposer from "../ReviewPost/ReviewComposer";
 
 export default function Feed() {
-  const {
-    posts,
-    seeMorePosts,
-    addPost,
-    toggleLike,
-    addComment,
-    sharePost,
-    hasMore,
-  } = useFeed();
+  const { posts, seeMorePosts, toggleLike, addComment, sharePost, hasMore } =
+    useFeed();
 
   // State for which tab/composer is active
   const [activeComposer, setActiveComposer] = useState<

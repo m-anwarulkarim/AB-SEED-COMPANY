@@ -25,7 +25,7 @@ export default function FeedHeader({
               : "hover:bg-gray-100"
           }`}
         >
-          Popular Post
+          পপুলার পাস
         </button>
 
         <button
@@ -39,7 +39,7 @@ export default function FeedHeader({
               : "hover:bg-gray-100"
           }`}
         >
-          Review Post
+          রিভউ পাস
         </button>
 
         <button
@@ -51,7 +51,8 @@ export default function FeedHeader({
             activeTab === "new" ? "bg-blue-600 text-white" : "hover:bg-gray-100"
           }`}
         >
-          New Post করুন <FaPlus />
+          নতুন পোস্ট করুন
+          <FaPlus />
         </button>
       </div>
     </div>
