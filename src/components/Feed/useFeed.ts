@@ -1,7 +1,5 @@
 import { useState } from "react";
 import type { Post, CommentItem } from "@/type/types";
-import NewPostComposer from "../NewPostComposer";
-import PostCard from "./PostCard";
 
 function makeSamplePosts(): Post[] {
   const posts: Post[] = [];
@@ -30,6 +28,7 @@ function makeSamplePosts(): Post[] {
           ? "লম্বা পোস্ট উদাহরণ — দেখার জন্য See more কাজ করবে। Lorem ipsum dolor sit amet..."
           : `Short post ${i}`,
       images: [],
+      videos: [], // ✅ ভিডিও ফিল্ড
       likes: Math.floor(Math.random() * 40),
       comments,
       shares: Math.floor(Math.random() * 10),
@@ -38,14 +37,35 @@ function makeSamplePosts(): Post[] {
   return posts;
 }
 
-export default function Feed() {
+export default function useFeed() {
   const [posts, setPosts] = useState<Post[]>(makeSamplePosts());
   const [visibleCount, setVisibleCount] = useState(5);
 
-  const handleSeeMorePosts = () =>
+  const seeMorePosts = () =>
     setVisibleCount((v) => Math.min(posts.length, v + 5));
 
-  const handleLike = (postId: number, liked: boolean) => {
+  const addPost = (
+    content: string,
+    images: string[] = [],
+    videos: string[] = []
+  ) => {
+    const newPost: Post = {
+      id: Date.now(),
+      author: "You",
+      avatar: "https://i.pravatar.cc/150?img=10",
+      createdAt: new Date().toISOString(),
+      content,
+      images,
+      videos,
+      likes: 0,
+      comments: [],
+      shares: 0,
+    };
+    setPosts((prev) => [newPost, ...prev]);
+    setVisibleCount((v) => v + 1);
+  };
+
+  const toggleLike = (postId: number, liked: boolean) => {
     setPosts((prev) =>
       prev.map((p) =>
         p.id === postId ? { ...p, likes: p.likes + (liked ? 1 : -1) } : p
@@ -53,11 +73,11 @@ export default function Feed() {
     );
   };
 
-  const handleAddComment = (postId: number, commentText: string) => {
+  const addComment = (postId: number, text: string) => {
     const newComment: CommentItem = {
       id: Date.now(),
       author: "You",
-      text: commentText,
+      text,
       createdAt: new Date().toISOString(),
     };
     setPosts((prev) =>
@@ -67,52 +87,20 @@ export default function Feed() {
     );
   };
 
-  const handleShare = (postId: number) => {
+  const sharePost = (postId: number) => {
     setPosts((prev) =>
       prev.map((p) => (p.id === postId ? { ...p, shares: p.shares + 1 } : p))
     );
   };
 
-  const handleAddPost = (content: string, images: string[] = []) => {
-    const newPost: Post = {
-      id: Date.now(),
-      author: "You",
-      avatar: "https://i.pravatar.cc/150?img=10",
-      createdAt: new Date().toISOString(),
-      content,
-      images,
-      likes: 0,
-      comments: [],
-      shares: 0,
-    };
-    setPosts((prev) => [newPost, ...prev]);
-    setVisibleCount((v) => v + 1);
+  return {
+    posts: posts.slice(0, visibleCount),
+    visibleCount,
+    seeMorePosts,
+    addPost,
+    toggleLike,
+    addComment,
+    sharePost,
+    hasMore: visibleCount < posts.length,
   };
-
-  return (
-    <div className="max-w-2xl mx-auto p-4">
-      <NewPostComposer onPost={handleAddPost} />
-
-      {posts.slice(0, visibleCount).map((post) => (
-        <PostCard
-          key={post.id}
-          post={post}
-          onLike={handleLike}
-          onAddComment={handleAddComment}
-          onShare={handleShare}
-        />
-      ))}
-
-      {visibleCount < posts.length && (
-        <div className="text-center mt-4">
-          <button
-            onClick={handleSeeMorePosts}
-            className="px-4 py-2 bg-blue-600 text-white rounded"
-          >
-            See more posts
-          </button>
-        </div>
-      )}
-    </div>
-  );
 }

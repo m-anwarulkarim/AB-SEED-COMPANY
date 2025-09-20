@@ -10,7 +10,7 @@ import {
 
 interface Props {
   postId: number;
-  onLike?: (postId: number, liked: boolean) => void;
+  onLike?: (postId: number, reaction?: string) => void;
 }
 
 const reactions = [
@@ -26,16 +26,17 @@ export default function LikeButton({ postId, onLike }: Props) {
   const [liked, setLiked] = useState(false);
   const [hover, setHover] = useState(false);
 
-  const handleClick = () => {
+  // যদি শুধুই সাধারণ লাইক হয়
+  const handleLike = (reactionName?: string) => {
     setLiked(!liked);
-    onLike?.(postId, !liked);
+    onLike?.(postId, reactionName);
     setHover(false);
   };
 
   return (
     <div className="relative">
       <button
-        onClick={() => handleClick()}
+        onClick={() => handleLike()}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         className={`flex-1 py-2 rounded hover:bg-gray-100 ${
@@ -50,7 +51,7 @@ export default function LikeButton({ postId, onLike }: Props) {
           {reactions.map((r, idx) => (
             <button
               key={idx}
-              onClick={() => handleClick(idx)}
+              onClick={() => handleLike(r.name)}
               className="p-1 hover:scale-110 transition"
             >
               {r.icon}

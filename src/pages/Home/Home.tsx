@@ -1,6 +1,6 @@
-import Feed from "./Feed/PostCard/Feed";
-import SidebarLeft from "./SidebarLeft";
-import SidebarRight from "./SidebarRight";
+import Feed from "../../components/Feed/Feed";
+import SidebarLeft from "../../components/SidebarLeft/SidebarLeft";
+import SidebarRight from "../../components/SidebarRight/SidebarRight";
 
 export default function Home() {
   return (
